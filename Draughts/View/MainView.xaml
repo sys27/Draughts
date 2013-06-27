@@ -1,0 +1,40 @@
+﻿<Window x:Class="Draughts.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:Draughts.Resources"
+        xmlns:command="clr-namespace:Draughts.Command"
+        Title="{x:Static res:Resource.MainWindowTitle}" Width="556" Height="428" WindowStartupLocation="CenterScreen"
+        Icon="..\Images\Icon.ico" ResizeMode="NoResize">
+    <Window.Resources>
+        <command:CommandReference x:Key="newGameCommandReference" Command="{Binding Path=NewGameCommand}" />
+        <command:CommandReference x:Key="saveGameCommandReference" Command="{Binding Path=SaveGameCommand}" />
+        <command:CommandReference x:Key="loadGameCommandReference" Command="{Binding Path=LoadGameCommand}" />
+        <command:CommandReference x:Key="exitCommandReference" Command="{Binding Path=ExitCommand}" />
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Command="{StaticResource newGameCommandReference}" Modifiers="Ctrl" Key="N" />
+        <KeyBinding Command="{StaticResource saveGameCommandReference}" Modifiers="Ctrl" Key="S" />
+        <KeyBinding Command="{StaticResource loadGameCommandReference}" Modifiers="Ctrl" Key="L" />
+        <KeyBinding Command="{StaticResource exitCommandReference}" Modifiers="Alt" Key="F4" />
+    </Window.InputBindings>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="150" />
+        </Grid.ColumnDefinitions>
+
+        <Canvas x:Name="canvas" Grid.Column="0" Width="400" Height="400" />
+        
+        <Grid Grid.Column="1">
+            <TextBlock Margin="8,8,8,0" Text="{x:Static res:Resource.MainWindowTitle}" VerticalAlignment="Top" TextAlignment="Center" TextBlock.FontWeight="Bold" FontSize="16" />
+            <TextBlock x:Name="currentTurnText" Margin="8,33.28,0,0" Text="{Binding Path=CurrentTurn}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="134"/>
+            <TextBlock x:Name="leftText" Margin="8,53.24,8,0" Text="{Binding Path=LeftDraughts}" VerticalAlignment="Top"/>
+
+            <Button Content="{x:Static res:Resource.NewGameButtonText}" Margin="8,0,8,85.92" VerticalAlignment="Bottom" Command="{Binding Path=NewGameCommand}" ToolTip="{x:Static res:Resource.NewGameToolTip}" />
+            <Button Content="{x:Static res:Resource.SaveButtonText}" Margin="8,0,8,59.96" VerticalAlignment="Bottom" Command="{Binding Path=SaveGameCommand}" ToolTip="{x:Static res:Resource.SaveGameToolTip}" />
+            <Button Content="{x:Static res:Resource.LoadButtonText}" Margin="8,0,8,34" VerticalAlignment="Bottom" Command="{Binding Path=LoadGameCommand}" ToolTip="{x:Static res:Resource.LoadGameToolTip}" />
+            <Button Content="{x:Static res:Resource.ExitButtonText}" Margin="8,0,8,8" VerticalAlignment="Bottom" Command="{Binding Path=ExitCommand}" ToolTip="{x:Static res:Resource.ExitToolTip}" />
+        </Grid>
+    </Grid>
+</Window>
