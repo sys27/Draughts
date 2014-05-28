@@ -69,12 +69,12 @@ namespace Draughts.Test
         public void TurnTest()
         {
             DraughtsGame target = new DraughtsGame();
-            int startX = 3;
-            int startY = 2;
+            int startX = 2;
+            int startY = 5;
             Draught draught = target.GameBoard[startY, startX];
 
-            int endX = 4;
-            int endY = 3;
+            int endX = 3;
+            int endY = 4;
             target.Turn(startX, startY, endX, endY);
 
             Assert.AreEqual(draught, target.GameBoard[endY, endX]);
@@ -87,10 +87,10 @@ namespace Draughts.Test
         public void TurnTest1()
         {
             DraughtsGame target = new DraughtsGame();
-            BoardPoint startPoint = new BoardPoint(2, 3);
+            BoardPoint startPoint = new BoardPoint(5, 2);
             Draught draught = target.GameBoard[startPoint];
 
-            BoardPoint endPoint = new BoardPoint(3, 4);
+            BoardPoint endPoint = new BoardPoint(4, 3);
             target.Turn(startPoint, endPoint);
 
             Assert.AreEqual(draught, target.GameBoard[endPoint]);
@@ -117,13 +117,14 @@ namespace Draughts.Test
         public void KillTest()
         {
             DraughtsGame game = new DraughtsGame();
-            Draught dr = game.GameBoard[2, 3];
+            Draught dr = game.GameBoard[5, 4];
 
+            game.Turn(4, 5, 5, 4);
             game.Turn(3, 2, 4, 3);
-            game.Turn(2, 5, 3, 4);
-            game.Turn(4, 3, 2, 5);
+            game.Turn(5, 4, 3, 2);
 
-            Assert.AreEqual<Draught>(dr, game.GameBoard[5, 2]);
+            Assert.AreEqual<Draught>(dr, game.GameBoard[2, 3]);
+            Assert.AreEqual(11, game.GameBoard.LeftDraughtPlayerTwo);
         }
 
         /// <summary>
@@ -135,29 +136,28 @@ namespace Draughts.Test
             Draught[,] draughts = new Draught[8, 8];
             Draught dr = new Draught(1, 0, DraughtType.Queen, Players.PlayerOne);
             draughts[0, 1] = dr;
-            Draught dr1 = new Draught(0, 5, Players.PlayerTwo);
-            draughts[5, 0] = dr1;
             Board board = new Board(draughts, 1, 1);
             DraughtsGame game = new DraughtsGame { GameBoard = board };
 
             // вниз-вправо
             game.Turn(1, 0, 4, 3);
             Assert.AreEqual<Draught>(dr, game.GameBoard[3, 4]);
-            game.Turn(0, 5, 1, 4);
+            game.CurrentTurn = Players.PlayerOne;
 
             // вверх-вправо
             game.Turn(4, 3, 6, 1);
             Assert.AreEqual<Draught>(dr, game.GameBoard[1, 6]);
-            game.Turn(1, 4, 0, 3);
+            game.CurrentTurn = Players.PlayerOne;
 
             // вниз-влево
             game.Turn(6, 1, 2, 5);
             Assert.AreEqual<Draught>(dr, game.GameBoard[5, 2]);
-            game.Turn(0, 3, 1, 2);
+            game.CurrentTurn = Players.PlayerOne;
 
             // вверх-влево
             game.Turn(2, 5, 0, 3);
             Assert.AreEqual<Draught>(dr, game.GameBoard[3, 0]);
+            game.CurrentTurn = Players.PlayerOne;
         }
 
         /// <summary>

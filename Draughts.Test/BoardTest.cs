@@ -281,7 +281,7 @@ namespace Draughts.Test
             int x = 3;
             int y = 2;
             target.Remove(x, y);
-            Assert.AreEqual<int>(11, target.LeftDraughtPlayerOne);
+            Assert.AreEqual<int>(11, target.LeftDraughtPlayerTwo);
         }
 
         /// <summary>

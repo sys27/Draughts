@@ -153,11 +153,11 @@ namespace Draughts.Library
         {
             if (board.LeftDraughtPlayerOne == 0)
             {
-                OnGameOver(Players.PlayerOne);
+                OnGameOver(Players.PlayerTwo);
             }
             else if (board.LeftDraughtPlayerTwo == 0)
             {
-                OnGameOver(Players.PlayerTwo);
+                OnGameOver(Players.PlayerOne);
             }
         }
 
@@ -267,8 +267,10 @@ namespace Draughts.Library
         private void TurnNormalDraught(Draught draught, int endX, int endY)
         {
             AllDraughtsCanKill();
-            if ((draught.Player == Players.PlayerOne && ((draught.X - 1 == endX && draught.Y + 1 == endY) || (draught.X + 1 == endX && draught.Y + 1 == endY))) ||
-            (draught.Player == Players.PlayerTwo && ((draught.X - 1 == endX && draught.Y - 1 == endY) || (draught.X + 1 == endX && draught.Y - 1 == endY))))
+            if ((draught.Player == Players.PlayerOne &&
+                ((draught.X - 1 == endX && draught.Y - 1 == endY) || (draught.X + 1 == endX && draught.Y - 1 == endY))) ||
+               (draught.Player == Players.PlayerTwo &&
+                ((draught.X - 1 == endX && draught.Y + 1 == endY) || (draught.X + 1 == endX && draught.Y + 1 == endY))))
             {
                 TurnMove(draught, endX, endY);
             }

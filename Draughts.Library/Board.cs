@@ -41,25 +41,9 @@ namespace Draughts.Library
             }
         }
 
-        private void CreatePlayerOneDraught()
-        {
-            for (int y = 0; y < 3; y++)
-            {
-                for (int x = 0; x < 8; x++)
-                {
-                    if ((y + x) % 2 != 0)
-                    {
-                        draughts[y, x] = new Draught(x, y, Players.PlayerOne);
-                    }
-                }
-            }
-
-            leftDraughtsPlayerOne = 12;
-        }
-
         private void CreatePlayerTwoDraught()
         {
-            for (int y = 5; y < 8; y++)
+            for (int y = 0; y < 3; y++)
             {
                 for (int x = 0; x < 8; x++)
                 {
@@ -70,14 +54,30 @@ namespace Draughts.Library
                 }
             }
 
+            leftDraughtsPlayerOne = 12;
+        }
+
+        private void CreatePlayerOneDraught()
+        {
+            for (int y = 5; y < 8; y++)
+            {
+                for (int x = 0; x < 8; x++)
+                {
+                    if ((y + x) % 2 != 0)
+                    {
+                        draughts[y, x] = new Draught(x, y, Players.PlayerOne);
+                    }
+                }
+            }
+
             leftDraughtsPlayerTwo = 12;
         }
 
         public void CreateBoard()
         {
             draughts = new Draught[8, 8];
-            CreatePlayerOneDraught();
             CreatePlayerTwoDraught();
+            CreatePlayerOneDraught();
         }
 
         public void Move(Draught draught, BoardPoint point)
